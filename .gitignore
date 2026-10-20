@@ -1,0 +1,15 @@
+runtime/
+fonts/
+ipquality-tools/
+reports/
+dist/
+work/
+logs/
+__pycache__/
+*.pyc
+*.zip
+*.pem
+*.key
+.env
+.env.*
+WUID_CHECKPOINT*

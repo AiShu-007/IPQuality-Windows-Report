@@ -1,0 +1,38 @@
+{
+  "python": {
+    "url": "https://www.python.org/ftp/python/3.14.8/python-3.14.8-embed-amd64.zip",
+    "version": "3.14.8",
+    "sha256": "a93abe456ab01bd96d7a085b3cdb6566b3063f4241360d114142fbdb07f0a310",
+    "file": "python-3.14.8-embed-amd64.zip"
+  },
+  "pillow": {
+    "url": "https://files.pythonhosted.org/packages/cd/8b/601e6566b957ca50e28725cb6c355c59c2c8609751efbecd980db44e0349/pillow-12.2.0-cp314-cp314-win_amd64.whl",
+    "version": "12.2.0",
+    "sha256": "4e6c62e9d237e9b65fac06857d511e90d8461a32adcc1b9065ea0c0fa3a28150",
+    "file": "pillow-12.2.0-cp314-cp314-win_amd64.whl"
+  },
+  "curl": {
+    "url": "https://curl.se/windows/dl-8.23.0_1/curl-8.23.0_1-win64-mingw.zip",
+    "version": "8.23.0_1",
+    "sha256": "752ff19c45be64af5b5f8d5222dce64e0f7b03d740a7362a4055c220fa9637c6",
+    "file": "curl-8.23.0_1-win64-mingw.zip"
+  },
+  "jq": {
+    "url": "https://github.com/jqlang/jq/releases/download/jq-1.8.2/jq-windows-amd64.exe",
+    "version": "1.8.2",
+    "sha256": "a6fc67fedaf9128a3309a1e2ebb8b986aeccf70122ee46d2cb4849e423f0c627",
+    "file": "jq-windows-amd64.exe"
+  },
+  "bc": {
+    "url": "https://repo.msys2.org/msys/x86_64/bc-1.08.2-1-x86_64.pkg.tar.zst",
+    "version": "1.08.2-1",
+    "sha256": "99fd4875fd51cfe4bfa9737d0cd0993092977f50fdba5e6012a04de47316af11",
+    "file": "bc-1.08.2-1-x86_64.pkg.tar.zst"
+  },
+  "cjk_font": {
+    "url": "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/Mono/NotoSansMonoCJKsc-Regular.otf",
+    "version": "NotoSansMonoCJKsc-Regular",
+    "file": "NotoSansMonoCJKsc-Regular.otf",
+    "sha256": "ec04cc376b34887cedbdf84074e2e226ed2761eeabdcb9173fc1dd7bfd153ef7"
+  }
+}
