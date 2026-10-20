@@ -1,0 +1,120 @@
+﻿##############################################################################
+IP质量体检报告：[出口 IP 已打码]
+https://github.com/xykt/IPQuality
+真实检测样例（已脱敏）  版本：v2026-09-16
+本机代理：HTTP/mixed [地址及端口已隐藏] / 全字段显示
+##############################################################################
+一、基础信息（MaxMind；缺项注明补充来源）
+IPv4出口： [已打码]
+IPv6出口：        未确认；接口或链路失败，详见明细
+自治系统号： [已打码]
+组织： [已打码]
+国家/地区：       美国
+注册地区：        美国
+洲：              未返回数据
+省/州： [已打码]
+城市： [已打码]
+邮编： [已打码]
+时区： [已打码]
+纬度： [已打码]
+经度： [已打码]
+坐标： [已打码]
+地图： [已打码]
+地区口径：        原生IP
+标签解释：        “原生IP”为地域标签，不等于住宅网络。
+ASN域名： [已打码]
+网络前缀： [已打码]
+公司名称： [已打码]
+任播网络：        否 [IPinfo]
+移动网络：        否 [IPinfo]
+匿名网络：        否 [IPinfo]
+卫星网络：        否 [IPinfo]
+托管网络：        否 [IPinfo]
+二、IP类型属性（未知表示未获得字段）
+数据库        IPinfo      ipregistry  ipapi       IP2Location AbuseIPDB   
+使用类型      商业        商业        商业        商业        商业        
+公司类型      商业        机房        机房        机房        未知        
+三、风险评分（保留各数据库原口径，不互相换算）
+IP2Location：  0|低风险
+Scamalytics：  0|低风险
+ipapi：                                    7.03%|高风险
+AbuseIPDB：    0|低风险
+IPQS：                       73|低风险
+DB-IP：         |低风险
+Cloudflare：      旧版截图项目；当前脚本无评分查询模块
+四、风险因子（未知不等于否）
+数据库        IP2Location ipapi       ipregistry  IPQS        
+国家          US          US          US          US          
+代理          否          否          否          是          
+Tor           否          否          否          否          
+VPN           否          否          否          否          
+服务器        否          是          是          未知        
+滥用          否          否          否          否          
+机器人        否          否          未知        否          
+数据库        Scamalytics ipdata      IPinfo      DB-IP       IPWHOIS     
+国家          US          US          US          US          未知        
+代理          否          否          否          否          未知        
+Tor           否          否          否          未知        未知        
+VPN           否          未知        否          未知        未知        
+服务器        否          否          否          未知        未知        
+滥用          否          否          未知        未知        未知        
+机器人        否          未知        未知        否          未知        
+IPWHOIS说明：     当前版本仅保留字段，未提供查询模块。
+五、流媒体及AI服务（HTTP探测，不验证账号功能）
+服务              状态          地区        解锁方式
+TikTok            机房          US          未检测
+Disney+           解锁          US          未检测
+Netflix           解锁          US          未检测
+YouTube           解锁          US          未检测
+AmazonPV          解锁          US          未检测
+Reddit            解锁          US          未检测
+ChatGPT           解锁          US          未检测
+方式说明：        代理模式不根据本机DNS推断原生或DNS解锁。
+六、邮件连通性（经当前HTTP代理访问目标MX的25端口）
+本机源端口25：    代理模式无法验证远端节点绑定源端口25。
+Gmail：           超时，未确认
+  MX：            gmail-smtp-in.l.google.com
+Outlook：         超时，未确认
+  MX：            outlook-com.olc.protection.outlook.com
+Yahoo：           超时，未确认
+  MX：            mta5.am0.yahoodns.net
+Apple：           可连接（收到220）
+  MX：            mx01.mail.icloud.com
+QQ：              可连接（收到220）
+  MX：            mx3.qq.com
+MailRU：          超时，未确认
+  MX：            mxs.mail.ru
+AOL：             超时，未确认
+  MX：            mx-aol.mail.gm0.yahoodns.net
+GMX：             超时，未确认
+  MX：            mx00.gmx.net
+MailCOM：         超时，未确认
+  MX：            mx00.mail.com
+163：             可连接（收到220）
+  MX：            163mx01.mxmail.netease.com
+Sohu：            可连接（收到220）
+  MX：            sohumx1.sohu.com
+Sina：            可连接（收到220）
+  MX：            freemx1.sinamail.sina.com.cn
+邮件范围：        只连接并读取SMTP欢迎语，未发送邮件。
+MX范围：          每家测试一个首选MX；失败不代表所有MX不可用。
+七、DNS黑/白名单查询（原项目混合清单，DoH）
+清单总数：        421
+未命中：          377
+命中返回码：      0
+白名单返回：      0
+查询受限：        9
+DNS错误：         35
+连接失败：        0
+异常响应：        0
+查询解析器：      https://dns.google/resolve
+结果口径：        未命中不验证列表活性；命中码需按列表核查。
+受限码说明：      DNSWL的127.0.0.255等策略码不计作命中。
+完整逐项结果：    同名 .details.txt 与 .json，包含全部清单查询。
+八、检测口径与缺项
+地理信息来源：    MaxMind缺项由IPinfo补充；不伪造精度。
+分流规则：        不同网站可能经过不同出站节点。
+未知/无数据：     接口未提供、查询失败或当前模式无法验证。
+未采集项目：      Cloudflare评分、IPWHOIS、DNS解锁方式。
+==============================================================================
+每项真实状态均保留；失败与未知不作为正常或低风险。
