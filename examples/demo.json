@@ -1,0 +1,96 @@
+{
+  "Head": {
+    "IP": "203.0.113.10",
+    "Version": "DEMO - synthetic data, not a real measurement"
+  },
+  "Info": {
+    "ASN": "64500",
+    "Organization": "Documentation Example Network",
+    "Region": {
+      "Name": "演示地区（非实测）"
+    },
+    "RegisteredRegion": {
+      "Name": "演示地区"
+    },
+    "Continent": {
+      "Name": "演示"
+    },
+    "City": {
+      "Name": "示例城市"
+    },
+    "Type": "演示数据"
+  },
+  "Type": {
+    "Usage": {
+      "IPinfo": "演示",
+      "ipregistry": "演示"
+    }
+  },
+  "Supplemental": {
+    "IPv6": {
+      "Status": "unconfirmed"
+    },
+    "DNSBL": {
+      "Status": "completed",
+      "Resolver": "https://dns.google/resolve",
+      "Total": 4,
+      "Counts": {
+        "not_listed": 1,
+        "restricted": 1,
+        "dns_error": 1,
+        "allowlist_code": 1
+      },
+      "Results": []
+    },
+    "SMTP": [
+      {
+        "Provider": "Gmail",
+        "Status": "unknown"
+      },
+      {
+        "Provider": "Outlook",
+        "Status": "unknown"
+      },
+      {
+        "Provider": "Yahoo",
+        "Status": "unknown"
+      },
+      {
+        "Provider": "Apple",
+        "Status": "unknown"
+      },
+      {
+        "Provider": "QQ",
+        "Status": "unknown"
+      },
+      {
+        "Provider": "MailRU",
+        "Status": "unknown"
+      },
+      {
+        "Provider": "AOL",
+        "Status": "unknown"
+      },
+      {
+        "Provider": "GMX",
+        "Status": "unknown"
+      },
+      {
+        "Provider": "MailCOM",
+        "Status": "unknown"
+      },
+      {
+        "Provider": "163",
+        "Status": "unknown"
+      },
+      {
+        "Provider": "Sohu",
+        "Status": "unknown"
+      },
+      {
+        "Provider": "Sina",
+        "Status": "unknown"
+      }
+    ]
+  }
+}
