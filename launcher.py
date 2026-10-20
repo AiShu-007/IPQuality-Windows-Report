@@ -31,14 +31,78 @@ def proxy_url(value):
     return value.rstrip('/')
 
 
-def find_proxy():
-    for port in (7890, 7897, 10809, 1080, 8080):
+def system_proxies():
+    """Read static Windows proxy settings without changing them or executing PAC."""
+    try:
+        import winreg
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER,
+                            r'Software\Microsoft\Windows\CurrentVersion\Internet Settings') as key:
+            if not winreg.QueryValueEx(key, 'ProxyEnable')[0]:
+                return []
+            value = winreg.QueryValueEx(key, 'ProxyServer')[0]
+    except (ImportError, OSError):
+        return []
+    if '=' not in value:
+        return [value]
+    settings = dict(part.split('=', 1) for part in value.split(';') if '=' in part)
+    return [settings[k] for k in ('https', 'http') if settings.get(k)]
+
+
+def proxy_candidates():
+    values = system_proxies()
+    values += [os.environ.get(k, '') for k in
+               ('HTTPS_PROXY', 'https_proxy', 'HTTP_PROXY', 'http_proxy', 'ALL_PROXY', 'all_proxy')]
+    values += [str(p) for p in (7890, 7897, 10809, 1080, 8080, 1087, 7891, 2080, 20171)]
+    candidates = []
+    for value in values:
+        if not value:
+            continue
         try:
-            with socket.create_connection(('127.0.0.1', port), timeout=0.15):
-                return f'http://127.0.0.1:{port}'
-        except OSError:
+            if not value.isdecimal() and '://' not in value:
+                value = 'http://' + value
+            value = proxy_url(value)
+        except ValueError:
+            continue
+        if value not in candidates:
+            candidates.append(value)
+    return candidates
+
+
+def verify_proxy(value, env, endpoints=None):
+    """Require a successful proxied HTTP request and a valid public IPv4 reply."""
+    import ipaddress
+    item = urlsplit(value)
+    try:
+        with socket.create_connection((item.hostname, item.port), timeout=0.3):
             pass
-    return 'http://127.0.0.1:7890'
+    except OSError:
+        return None
+    endpoints = endpoints or ('https://api.ipify.org', 'https://checkip.amazonaws.com')
+    curl = ROOT / 'ipquality-tools/curl.exe'
+    for endpoint in endpoints:
+        try:
+            response = subprocess.run(
+                [str(curl), '--silent', '--show-error', '--fail', '--proxy', value,
+                 '--noproxy', '', '--connect-timeout', '3', '--max-time', '7',
+                 '--max-filesize', '1024', '--cacert',
+                 str(ROOT / 'ipquality-tools/windows-trusted-ca.pem'), endpoint],
+                env=env, capture_output=True, text=True, timeout=9)
+            if response.returncode:
+                continue
+            address = ipaddress.ip_address(response.stdout.strip())
+            if address.version == 4 and address.is_global:
+                return str(address)
+        except (OSError, ValueError, subprocess.TimeoutExpired):
+            continue
+    return None
+
+
+def find_proxy(env):
+    for candidate in proxy_candidates():
+        address = verify_proxy(candidate, env)
+        if address:
+            return candidate, address
+    return None
 
 
 def environment():
@@ -99,20 +163,29 @@ def main():
     local_ca_bundle()
     if args.self_test:
         return self_test(bash, python, env)
+    print('IPQuality Windows 便携版 v1.0.1 | AGPL-3.0 | 上游 xykt/IPQuality', flush=True)
+    print('结果取决于当前代理规则；不同网站可能经过不同出口。', flush=True)
     selected = args.proxy or os.environ.get('IPQ_PROXY')
-    if not selected:
-        default = find_proxy()
-        print('IPQuality Windows 便携版 v1.0.0 | AGPL-3.0 | 上游 xykt/IPQuality')
-        print('请先打开代理软件；使用 HTTP / mixed 端口，不是 SOCKS 专用端口。')
-        print('结果取决于当前代理规则；不同网站可能经过不同出口。')
-        selected = input(f'代理地址或端口 [回车使用 {default}]：').strip() or default
-    selected = proxy_url(selected)
-    item = urlsplit(selected)
-    try:
-        with socket.create_connection((item.hostname, item.port), timeout=3):
-            pass
-    except OSError as error:
-        raise RuntimeError('无法连接代理，请检查代理软件是否已开启以及 HTTP/mixed 端口是否正确。') from error
+    if selected:
+        selected = proxy_url(selected)
+        address = verify_proxy(selected, env)
+        if not address:
+            raise RuntimeError('指定的 HTTP/mixed 代理未通过联网验证，请检查端口和当前节点。')
+        print(f'使用指定代理：{selected}；连通性检查出口 IPv4：{address}', flush=True)
+    else:
+        print('正在自动识别代理（系统设置、环境变量和常见本机端口）……', flush=True)
+        found = find_proxy(env)
+        if found:
+            selected, address = found
+            print(f'已自动识别并验证代理：{selected}；连通性检查出口 IPv4：{address}', flush=True)
+        else:
+            print('未找到能联网的 HTTP/mixed 代理，请确认代理软件和节点已开启。', flush=True)
+            if not sys.stdin.isatty():
+                raise RuntimeError('自动识别失败，请使用 --proxy 指定 HTTP/mixed 代理端口。')
+            selected = proxy_url(input('请输入 HTTP/mixed 端口或地址（关闭窗口取消）：').strip())
+            if not verify_proxy(selected, env):
+                raise RuntimeError('该地址未通过 HTTP 代理联网验证，请检查端口和当前节点。')
+    print('如需检测其他代理，可运行 Start.cmd --proxy 端口号。', flush=True)
     env.update(IPQ_PROXY=selected, IPQ_OPEN_REPORT='0' if args.no_open else '1')
     # Replace inherited proxy variables for this process tree only.
     for key in ('HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'http_proxy', 'https_proxy', 'all_proxy'):

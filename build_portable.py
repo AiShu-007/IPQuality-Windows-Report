@@ -11,7 +11,7 @@ from urllib.request import Request, build_opener, ProxyHandler
 import zipfile
 
 ROOT = Path(__file__).resolve().parent
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 
 
 def sha(path):

@@ -6,10 +6,10 @@ Windows 上检测当前代理出口 IP，自动生成黑底彩色完整 PNG 报�
 
 ## 普通用户：下载、解压、双击
 
-1. 在本仓库 **Releases** 下载 `IPQuality-Windows-x64-Portable-v1.0.0.zip`。**Code → Download ZIP 只是源码，不包含运行环境。**
+1. 在本仓库 **Releases** 下载 `IPQuality-Windows-x64-Portable-v1.0.1.zip`。**Code → Download ZIP 只是源码，不包含运行环境。**
 2. 完整解压到一个可写文件夹，推荐路径不要过长；不要在压缩包内直接打开。
 3. 打开自己的代理软件，双击 `Start.cmd`。
-4. 输入代理软件的 HTTP / mixed 端口，例如 `7890` 或 `http://127.0.0.1:7890`。程序会检查常见本地端口，回车可采用建议值。
+4. 程序自动读取系统代理、代理环境变量并探测常见本机端口；通过 HTTP 联网验证后直接开始，无需输入端口。检测不到时才提示手动输入。
 5. 等待显示 **检测完成**。图片会自动打开，所有结果在 `reports` 文件夹。
 
 适用 Windows 10/11 x64。便携发行包内含 Python、Pillow、Bash、curl、jq、bc，不需要另装 Python、Git、Docker，也不需要管理员权限。检测仍需网络和可用代理。
@@ -51,6 +51,8 @@ Start.cmd --proxy http://127.0.0.1:7890
 Start.cmd --proxy 7897 --no-open
 Start.cmd --self-test
 ```
+
+自动识别优先使用能通过联网验证的系统静态代理，然后检查代理环境变量和常见端口。多个代理同时开启时，可用 `--proxy` 指定。仅开启 TUN、PAC 或使用自定义端口且未设置系统代理时，可能需要手动指定 HTTP/mixed 地址。自动识别只读取设置，不会切换节点。
 
 也可通过当前进程的 `IPQ_PROXY` 环境变量指定地址。不修改系统代理、代理软件配置或系统证书库。
 便携启动器暂只支持不带账号密码的 HTTP / HTTPS 代理，SOCKS 专用端口不能直接用于补充检测。
